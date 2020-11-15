@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Faisal Yahya">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>Lessons Project</title>
+    <script type = "text/javascript" src = "js/vue.js"></script>
+    <script type = "text/javascript" src = "js/vuex.js"></script>
+    <script type = "text/javascript" src="js/store.js"></script>
+    <script type = "text/javascript" src = "resource/lesson.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body >
+      <div id = "intro" class="container">
+        <p v-if="show">{{msg}}</p>
+        <button type="button" class="btn btn-sm btn-outline-secondary" v-on:click = "addToCart('Hi Lokoja People')">Add To Cart</button>
+      </div>
+    
+      <script type = "text/javascript">
+         var vue_det = new Vue({
+            el: '#intro',
+            data: {
+                msg:store.getters.sayMessage,
+                show:true
+            },
+            methods:{
+                addToCart: function(index){
+                    // console.log(index)
+                    // this.store.commit('changeMessage', index)
+                    store.commit('changeMessage', index);
+                    // console.log('Na im',store.getters.sayMessage)
+                    // this.msg = store.getters.sayMessage
+                    this.show = true
+                    // this.$forceUpdate();
+                }
+            }
+         });
+      </script>
+    </body>
+</html>

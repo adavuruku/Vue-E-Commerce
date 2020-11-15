@@ -16,3 +16,10 @@ nums = [{
 nums.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)); 
 
 console.log(nums.reverse())
+
+j = nums.map(num=> num.name)
+console.log(j.indexOf('Mumin'))
+
+var ar = [1, 2, 3, 4, 5, 6];
+ar.splice(5, 1);
+console.log(ar)

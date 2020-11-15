@@ -24,13 +24,11 @@
 
         .nav-link{
             background-color: grey;
-            /* border-radius: 40%; */
-            /* padding: 10px; */
         }
     </style>
   </head>
   <body >
-      <div id = "intro" class="container">
+      <div v-if ="stepone" id = "stepone" class="container">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <a class="navbar-brand" href="#">Home</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,7 +37,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li v-if = "showcat" class="nav-item active ">
-                        <a class="nav-link rounded-pill" href="#">Shopping Cart <span class="sr-only">(current)</span> <span class="catno rounded-circle" >20</span></a>
+                        <a v-on:click="gotoStepTwo" class="nav-link rounded-pill" href="#">Shopping Cart <span class="sr-only">(current)</span> <span class="catno rounded-circle" >{{no_cart}}</span></a>
                     </li>
                 </ul>
                 <div>
@@ -102,45 +100,52 @@
             </div>
         </div>
       </div>
-    
-      <script type = "text/javascript">
-         var vue_det = new Vue({
-            el: '#intro',
-            data: {
-                lessonList: lessonData,
-                show:true,
-                showcat:false,
-                field:'Subject',
-                sorttype:'Asc',
-                message:''
-            },
-            methods:{
-                getImgUrl:(item)=>'resource/'+item.image,
-                addToCart: function(index){
-                    var count = lessonData[index].space
-                    lessonData[index].space = count > 0 ? count-=1 : count
-                    this.showcat = true
-                    this.$forceUpdate();
-                },
-                valueChange: (selected,sortype)=>{
-                    if(selected === 'Subject'){
-                        lessonData.sort((a,b) => (a.subject.toUpperCase() > b.subject.toUpperCase()) ? 1 : ((b.subject.toUpperCase() > a.subject.toUpperCase()) ? -1 : 0)); 
-                    }else if(selected === 'Location'){
-                        lessonData.sort((a,b) => (a.location.toUpperCase() > b.location.toUpperCase()) ? 1 : ((b.location.toUpperCase() > a.location.toUpperCase()) ? -1 : 0));
-                    }else if(selected === 'Price'){
-                        lessonData.sort((a, b) => a.price - b.price);
-                    }else{
-                        lessonData.sort((a, b) => a.space - b.space);
-                    }
-                    console.log(typeof(sortype))
-                    if(sortype === 'Desc'){
-                        lessonData.reverse()
-                    }
-                    console.log(selected, sortype)
-                    //lessonData.sort((a,b)=> a.space
-                }
-            }
-         });
-      </script>
+      <!-- Step two-->
+      <div v-if="steptwo" id = "steptwo" class="container">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" v-on:click= "openStepOne" href="#">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li v-if = "showcat" class="nav-item active ">
+                        <a class="nav-link rounded-pill" href="#">Check Out <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div >
+                
+            <div class="row">
+                        <!-- start-->
+                    <div class="col-md-4" v-for = "(item, index) in cartList" :key="index">
+                        <div class="card mb-4 shadow-sm">
+                            <img :src="getImgUrl(item)" class="rounded" alt="Lesson Images" width="100%" height="225">
+                        <div class="card-body">
+                            <p class="card-text font-weight-bolder text-capitalize">{{item.subject}}</p>
+                            <p class="card-text font-weight-light"><span>Location: {{item.location}}</span> </p>
+                            <p><span>{{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(item.price)}}</span> - <button type="button" v-on:click = "increaseCart(index)" class="btn btn-sm btn-outline-secondary">+</button><span> {{item.space}} Space </span><button v-on:click = "decreaseCart(index)" type="button" class="btn btn-sm btn-outline-secondary">-</button></p>
+                            <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" v-if = "item.space>0? true: false" v-on:click = "removeFromCart(index)">Remove</button>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                <!-- end-->
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    
+                </div>
+                <div class="col-md-4">
+
+                </div>
+            </div>
+        </div>
+      </div>
+      <script type = "text/javascript" src = "js/index.js"></script>
     </body>
 </html>
