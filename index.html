@@ -1,0 +1,73 @@
+<html>
+   <head>
+      <title>VueJs Introduction</title>
+      <script type = "text/javascript" src = "js/vue.js"></script>
+      <script type = "text/javascript" src = "resource/lesson.js"></script>
+   </head>
+   <body>
+      <div id = "intro">
+        <div>
+            <select  v-model="selected" v-on:change="valueChange(selected)">
+                <option value="Subject">Subject</option>
+                <option value="Location">Location</option>
+                <option value="Price">Price</option>
+                <option value="Space">Space</option>
+            </select>
+            
+            <select>
+                <option value="Asc">Asc</option>
+                <option value="Desc">Desc</option>
+            </select>
+            <br/><br/>
+        </div>
+        <div>
+            <table border="1">
+                <thead>
+                    <th>SNo.</th>
+                    <th>Subject.</th>
+                    <th>Location.</th>
+                    <th>Price.</th>
+                    <th>Space.</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    <tr
+                            v-for = "(item, index) in lessonList" :key="index">
+                            <td>{{index + 1}}</td>
+                            <td>{{item.subject}}</td>
+                            <td>{{item.location}}</td>
+                            <td>{{item.price}}</td>
+                            <td>{{item.space}}</td>
+                            <td><button v-if = "item.space>0? true: false" v-on:click = "addToCart(index)"><span style = "font-size:12px;">Add To Cart</span></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+      </div>
+      <script type = "text/javascript">
+         var vue_det = new Vue({
+            el: '#intro',
+            data: {
+                lessonList: lessonData,
+                show:true,
+                message:'',
+                selected:''
+            },
+            methods:{
+                addToCart: function(index){
+                    var count = lessonData[index].space
+                    lessonData[index].space = count > 0 ? count-=1 : count
+                    // this.lessonData = this.lessonData
+                    this.$forceUpdate();
+                    // console.log(lessonData[index].space)
+                },
+                valueChange: (selected)=>{
+                    console.log(selected)
+                    //lessonData.sort((a,b)=> a.space
+                }
+            }
+         });
+      </script>
+   </body>
+</html>

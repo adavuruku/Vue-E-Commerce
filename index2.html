@@ -1,0 +1,55 @@
+<html>
+   <head>
+      <title>VueJs Introduction</title>
+      <script type = "text/javascript" src = "js/vue.js"></script>
+      <script type = "text/javascript" src = "resource/lesson.js"></script>
+   </head>
+   <body>
+      <div id = "intro" style = "text-align:center;">
+        <table border="1">
+            <thead>
+                <th>SNo.</th>
+                <th>Subject.</th>
+                <th>Location.</th>
+                <th>Price.</th>
+                <th>Space.</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <lessoncomponent 
+                v-for = "(item, index) in lessonList" :key="index"
+                v-bind:item = "item"
+                v-bind:index = "index"></lessoncomponent>
+            </tbody>
+        </table>
+      </div>
+      <script type = "text/javascript">
+        Vue.component('lessoncomponent',{
+            template : '<tr><td>{{index + 1}}<td><td>{{item.subject}}</td><td>{{item.location}}</td><td>{{item.price}}</td><td>{{item.space}}</td><td><button v-if = "show" v-on:click = "addToCart(index)"><span style = "font-size:12px;">Add To Cart</span></button></td></tr>',
+            data: function () {
+               return {
+                  counter: 0,
+                  show:item.space ? false:true
+               }
+            },
+            props: ['item', 'index'],
+            methods: {
+                addToCart: function (lng) {
+                  console.log(lessonData[lng]);
+               }
+            },
+         });
+         var vue_det = new Vue({
+            el: '#intro',
+            data: {
+                lessonList: lessonData
+            },
+            computed: {
+                lessoncomponent: ()=>{
+                    return lessonData
+                }
+            }
+         });
+      </script>
+   </body>
+</html>
