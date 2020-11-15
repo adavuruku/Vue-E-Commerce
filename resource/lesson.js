@@ -59,5 +59,17 @@ const lessonData = [
         "price":4000,
         "space":5,
         "image":"image10.jpg"
-    },
+    },{
+        "subject":"Vue Programming (Javascript)",
+        "location":"Katsina",
+        "price":4000,
+        "space":5,
+        "image":"image11.jpg"
+    },{
+        "subject":"Java Programming",
+        "location":"Katsina",
+        "price":4000,
+        "space":5,
+        "image":"image12.jpg"
+    }
 ]

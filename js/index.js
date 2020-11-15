@@ -58,17 +58,14 @@ var vue_det = new Vue({
             }else{
                 lessonData.sort((a, b) => a.space - b.space);
             }
-            console.log(typeof(sortype))
             if(sortype === 'Desc'){
                 lessonData.reverse()
             }
-            console.log(selected, sortype)
+            //console.log(selected, sortype)
             //lessonData.sort((a,b)=> a.space
         },
         gotoStepTwo:function(){
             this.stepone = false
-            // vue_det.$emit('open_step_two')
-            // this.$root.$emit('open_step_two')
             vue_det_two.steptwo = true
             vue_det_two.totalCost = shoppingCart.map(ele=>ele.price * ele.space).reduce(( accumulator, currentValue ) => accumulator + currentValue,0)
             vue_det_two.no_lesson = shoppingCart.length
